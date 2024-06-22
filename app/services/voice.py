@@ -15,7 +15,7 @@ from app.utils import utils
 
 def get_all_azure_voices(filter_locals=None) -> list[str]:
     if filter_locals is None:
-        filter_locals = ["zh-CN", "en-US", "zh-HK", "zh-TW"]
+        filter_locals = ["zh-CN", "en-US", "zh-HK", "zh-TW", "vi-VN"]
     voices_str = """
 Name: af-ZA-AdriNeural
 Gender: Female
@@ -1023,7 +1023,6 @@ def parse_voice_name(name: str):
 
 def is_azure_v2_voice(voice_name: str):
     voice_name = parse_voice_name(voice_name)
-    print(voice_name)
     if voice_name.endswith("-V2"):
         return voice_name.replace("-V2", "").strip()
     return ""
@@ -1036,6 +1035,7 @@ def tts(text: str, voice_name: str, voice_file: str) -> [SubMaker, None]:
 
 
 def azure_tts_v1(text: str, voice_name: str, voice_file: str) -> [SubMaker, None]:
+    voice_name = parse_voice_name(voice_name)
     text = text.strip()
     for i in range(3):
         try:
